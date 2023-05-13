@@ -1,5 +1,6 @@
 import 'package:destini/story_brain.dart';
 import 'package:flutter/material.dart';
+
 void main() => runApp(Destini());
 
 class Destini extends StatelessWidget {
@@ -11,10 +12,12 @@ class Destini extends StatelessWidget {
   }
 }
 
-StoryBrain storyBrain=StoryBrain();
+StoryBrain storyBrain = StoryBrain();
+
 class StoryPage extends StatefulWidget {
   _StoryPageState createState() => _StoryPageState();
 }
+
 class _StoryPageState extends State<StoryPage> {
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,6 @@ class _StoryPageState extends State<StoryPage> {
               Expanded(
                 flex: 12,
                 child: Center(
-
                   child: Text(
                     storyBrain.getStory(),
                     style: TextStyle(
@@ -45,9 +47,10 @@ class _StoryPageState extends State<StoryPage> {
               Expanded(
                 flex: 2,
                 child: TextButton(
-                  onPressed: () {setState(() {
-                    storyBrain.nextStory(1);
-                  });
+                  onPressed: () {
+                    setState(() {
+                      storyBrain.nextStory(1);
+                    });
                   },
                   style: TextButton.styleFrom(backgroundColor: Colors.red),
                   child: Text(
@@ -64,18 +67,21 @@ class _StoryPageState extends State<StoryPage> {
               ),
               Expanded(
                 flex: 2,
-                //TODO: Step 26 - Use a Flutter Visibility Widget to wrap this TextButton.
-                //TODO: Step 28 - Set the "visible" property of the Visibility Widget to equal the output from the buttonShouldBeVisible() method in the storyBrain.
-                child: TextButton(
-                  onPressed: () {
-                    storyBrain.nextStory(2);
-                  },
-                  style: TextButton.styleFrom(backgroundColor: Colors.blue),
-                  child: Text(
-                    storyBrain.getChoice2(),
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
+                child: Visibility(
+                  visible: storyBrain.buttonShouldBeVisible(),
+                  child: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        storyBrain.nextStory(1);
+                      });
+                    },
+                    style: TextButton.styleFrom(backgroundColor: Colors.blue),
+                    child: Text(
+                      storyBrain.getChoice2(),
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -87,6 +93,3 @@ class _StoryPageState extends State<StoryPage> {
     );
   }
 }
-//TODO: Step 24 - Run the app and try to figure out what code you need to add to this file to make the story change when you press on the choice buttons.
-
-//TODO: Step 29 - Run the app and test it against the Story Outline to make sure you've completed all the steps.
